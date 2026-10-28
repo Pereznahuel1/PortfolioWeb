@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { iniciarDB } from "./db";
 
 dotenv.config();
 
@@ -14,6 +15,12 @@ app.get("/api/proyectos", (req, res) => {
     res.json({ mensaje: "El servidor funciona. Acá van a ir los proyectos." });
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
-});
+iniciarDB()
+    .then(() => {
+    app.listen(PORT, () => {
+        console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    });
+    })
+    .catch((err) => {
+    console.error("No se pudo conectar a la base de datos:", err.message);
+    });
