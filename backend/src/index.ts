@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { iniciarDB } from "./db";
+import rutas from "./rutas";
 
 dotenv.config();
 
@@ -11,9 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/proyectos", (req, res) => {
-    res.json({ mensaje: "El servidor funciona. Acá van a ir los proyectos." });
-});
+app.use("/api/proyectos", rutas);
 
 iniciarDB()
     .then(() => {
