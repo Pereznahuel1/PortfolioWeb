@@ -20,6 +20,7 @@ export async function iniciarDB() {
         descripcion TEXT NOT NULL,
         tecnologias VARCHAR(255) NOT NULL,
         imagen VARCHAR(500),
+        enlace VARCHAR(500),
         estado ENUM('publicado', 'borrador') NOT NULL DEFAULT 'borrador'
     )
     `);

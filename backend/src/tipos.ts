@@ -6,6 +6,7 @@ export interface Proyecto {
   descripcion: string;
   tecnologias: string;
   imagen: string | null;
+  enlace: string | null;
   estado: EstadoProyecto;
 }
 

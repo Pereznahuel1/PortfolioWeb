@@ -84,9 +84,18 @@ function crearTarjeta(proyecto) {
     tarjeta.append(titulo, descripcion, tech);
     fragmento.appendChild(tarjeta);
 
-    if (proyecto.imagen) {
-        const banner = document.createElement("div");
+        if (proyecto.imagen) {
+        let banner;
+        if (proyecto.enlace) {
+            banner = document.createElement("a");
+            banner.href = proyecto.enlace;
+            banner.target = "_blank";
+            banner.rel = "noopener noreferrer";
+        } else {
+            banner = document.createElement("div");
+        }
         banner.className = "project-full-banner";
+
         const img = document.createElement("img");
         img.src = proyecto.imagen;
         img.alt = "Vista previa del proyecto " + proyecto.nombre;

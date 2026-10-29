@@ -21,6 +21,9 @@ function validar(body: any): string | null {
   if (body.estado && !ESTADOS.includes(body.estado)) {
     return "El estado debe ser 'publicado' o 'borrador'";
   }
+  if (body.enlace && !/^https?:\/\//.test(body.enlace)) {
+    return "El enlace debe empezar con http:// o https://";
+  }
   return null;
 }
 
@@ -49,13 +52,14 @@ router.post("/", async (req, res) => {
     descripcion: req.body.descripcion.trim(),
     tecnologias: req.body.tecnologias.trim(),
     imagen: req.body.imagen || null,
+    enlace: req.body.enlace || null,
     estado: req.body.estado || "borrador",
   };
 
   try {
     const [resultado] = await pool.query<ResultSetHeader>(
-      "INSERT INTO proyectos (nombre, descripcion, tecnologias, imagen, estado) VALUES (?, ?, ?, ?, ?)",
-      [nuevo.nombre, nuevo.descripcion, nuevo.tecnologias, nuevo.imagen, nuevo.estado]
+      "INSERT INTO proyectos (nombre, descripcion, tecnologias, imagen, enlace, estado) VALUES (?, ?, ?, ?, ?, ?)",
+      [nuevo.nombre, nuevo.descripcion, nuevo.tecnologias, nuevo.imagen, nuevo.enlace, nuevo.estado]
     );
     const creado: Proyecto = { id: resultado.insertId, ...nuevo };
     res.status(201).json(creado);
@@ -82,13 +86,14 @@ router.put("/:id", async (req, res) => {
     descripcion: req.body.descripcion.trim(),
     tecnologias: req.body.tecnologias.trim(),
     imagen: req.body.imagen || null,
+    enlace: req.body.enlace || null,
     estado: req.body.estado || "borrador",
   };
 
   try {
-    const [resultado] = await pool.query<ResultSetHeader>(
-      "UPDATE proyectos SET nombre = ?, descripcion = ?, tecnologias = ?, imagen = ?, estado = ? WHERE id = ?",
-      [datos.nombre, datos.descripcion, datos.tecnologias, datos.imagen, datos.estado, id]
+        const [resultado] = await pool.query<ResultSetHeader>(
+      "UPDATE proyectos SET nombre = ?, descripcion = ?, tecnologias = ?, imagen = ?, enlace = ?, estado = ? WHERE id = ?",
+      [datos.nombre, datos.descripcion, datos.tecnologias, datos.imagen, datos.enlace, datos.estado, id]
     );
     if (resultado.affectedRows === 0) {
       return res.status(404).json({ error: "Proyecto no encontrado" });

@@ -65,6 +65,7 @@ function editar(p) {
     document.getElementById("descripcion").value = p.descripcion;
     document.getElementById("tecnologias").value = p.tecnologias;
     document.getElementById("imagen").value = p.imagen || "";
+    document.getElementById("enlace").value = p.enlace || "";    
     document.getElementById("estado").value = p.estado;
     tituloForm.textContent = "Editando proyecto #" + p.id;
     btnCancelar.hidden = false;
@@ -90,6 +91,7 @@ form.addEventListener("submit", async (evento) => {
         descripcion: document.getElementById("descripcion").value.trim(),
         tecnologias: document.getElementById("tecnologias").value.trim(),
         imagen: document.getElementById("imagen").value.trim(),
+        enlace: document.getElementById("enlace").value.trim(),
         estado: document.getElementById("estado").value,
     };
 
