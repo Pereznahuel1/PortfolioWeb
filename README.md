@@ -129,6 +129,7 @@ Ejemplo de cuerpo JSON para crear o modificar:
   "descripcion": "Descripción del proyecto",
   "tecnologias": "HTML, CSS, JavaScript",
   "imagen": "imagenes/proyecto.jpg",
+  "enlace": "https://github.com/Pereznahuel1/PortfolioWeb.git",
   "estado": "publicado"
 }
 ```
